@@ -1,0 +1,152 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background: linear-gradient(to right, #0f0f0f, #1a1a1a);
+  min-height: 110vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  color: #f1f1f1;
+}
+
+.container {
+  background-color: #1e1e1e;
+  border-radius: 20px;
+  box-shadow: 0 0 30px rgba(0, 255, 255, 0.1);
+  width: 100%;
+  max-width: 650px;
+  padding: 20px;
+  text-align: center;
+  position: relative;
+  border: 1px solid #605c5c;
+}
+
+#logo {
+  width: 110px;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 50%; /* Perfect circle */
+  margin: 0 auto 20px;
+  border: 3px solid #1d647c; /* Neon highlight */
+  box-shadow: 0 0 15px rgb(2, 26, 26); /* Glow effect */
+  display: block; /* Center in container */
+  background-color: #111; /* In case image has transparency */
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #f1f1f1;
+}
+
+#name {
+  color: #00ffee;
+  font-weight: bold;
+}
+
+#va {
+  color: #00ff88;
+  font-weight: bold;
+}
+
+.chat-box {
+  background-color: #2a2a2a;
+  height: 300px;
+  overflow-y: auto;
+  border-radius: 10px;
+  padding: 15px;
+  text-align: left;
+  margin-bottom: 20px;
+  border: 1px solid #444;
+}
+
+.user, .assistant {
+  margin-bottom: 15px;
+  line-height: 1.5;
+}
+
+.user b {
+  color: #00bfff;
+}
+
+.assistant b {
+  color: #00ff88;
+}
+
+.input-area {
+  display: flex;
+  gap: 9px;
+  width: 560px;
+}
+
+.input-area input[type="text"] {
+  flex: 1;
+  padding: 10px 10px;
+  border: 1px solid #636060;
+  border-radius: 8px;
+  font-size: 16px;
+  outline: none;
+  background-color: #181313;
+  color: #f1f1f1;
+  transition: border 0.2s;
+}
+
+.input-area input[type="text"]:focus {
+  border-color: #00ffee;
+}
+
+.input-area button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  background-color: #00ffee;
+  color: #000;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.input-area button:hover {
+  background-color: #00ddcc;
+}
+
+#btn {
+  padding: 10px;
+  background-color: #ed0585;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+}
+
+#btn:hover {
+  background-color: #f307dc;
+}
+
+#btn img {
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+}
+
+#voice {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: 45px;
+  height: 45px;
+}
+
+#stopBtn {
+  padding: 10px 10px;
+  border: none;
+  border-radius: 8px;
+  background-color: #3ce7de; 
+  color: #171616;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
