@@ -10,6 +10,7 @@ let voiceStatus = document.getElementById("voiceStatus");
 let helpSection = document.getElementById("helpSection");
 let settingsPanel = document.getElementById("settingsPanel");
 let speechToggle = document.getElementById("speechToggle");
+let themeToggle = document.getElementById("themeToggle");
 
 // Speech settings
 let speechEnabled = false; // Default to disabled
@@ -35,6 +36,12 @@ document.addEventListener("DOMContentLoaded", function() {
   
   // Initialize speech synthesis
   initializeSpeechSynthesis();
+
+  // Initialize theme toggle
+  setupThemeToggle();
+
+  // Interactive gradient background
+  setupInteractiveBackground();
 });
 
 // Initialize speech synthesis
@@ -57,6 +64,95 @@ function initializeSpeechSynthesis() {
     }
   } else {
     console.error("Speech synthesis is not supported");
+  }
+}
+
+function setupInteractiveBackground() {
+  const root = document.documentElement;
+  let rafId = null;
+  let isMoving = false;
+
+  function onMove(e) {
+    const x = (e.clientX / window.innerWidth) * 100;
+    const y = (e.clientY / window.innerHeight) * 100;
+    // Trail the second glow to the inverse position for depth
+    const x2 = 100 - x;
+    const y2 = 100 - y;
+
+    if (rafId) cancelAnimationFrame(rafId);
+    rafId = requestAnimationFrame(() => {
+      root.style.setProperty('--glow1-x', x + '%');
+      root.style.setProperty('--glow1-y', y + '%');
+      root.style.setProperty('--glow2-x', x2 + '%');
+      root.style.setProperty('--glow2-y', y2 + '%');
+    });
+
+    if (!isMoving) {
+      isMoving = true;
+      document.body.classList.add('moving');
+      clearTimeout(stopTimer);
+    }
+    resetStopTimer();
+  }
+
+  let stopTimer;
+  function resetStopTimer() {
+    clearTimeout(stopTimer);
+    stopTimer = setTimeout(() => {
+      isMoving = false;
+      document.body.classList.remove('moving');
+    }, 500);
+  }
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  window.addEventListener('pointermove', onMove, { passive: true });
+}
+
+// Theme management
+function setupThemeToggle() {
+  if (!themeToggle) return;
+
+  const saved = localStorage.getItem("shifra-theme") || "system";
+  applyTheme(saved);
+  updateThemeToggleUI(saved);
+
+  themeToggle.addEventListener("click", function() {
+    const current = document.documentElement.getAttribute("data-theme") || "system";
+    const next = current === "system" ? "dark" : current === "dark" ? "light" : "system";
+    applyTheme(next);
+    updateThemeToggleUI(next);
+    localStorage.setItem("shifra-theme", next);
+  });
+}
+
+function applyTheme(mode) {
+  if (mode === "system") {
+    document.documentElement.removeAttribute("data-theme");
+  } else {
+    document.documentElement.setAttribute("data-theme", mode);
+  }
+}
+
+function updateThemeToggleUI(mode) {
+  if (!themeToggle) return;
+  const label = themeToggle.querySelector('.btn-label');
+  themeToggle.classList.remove('system', 'dark', 'light');
+  themeToggle.classList.add(mode === 'system' ? 'system' : mode);
+  if (mode === "light") {
+    themeToggle.title = "Theme: Light";
+    themeToggle.setAttribute("aria-label", "Toggle theme (Light)");
+    themeToggle.firstChild.textContent = "☀️";
+    if (label) label.textContent = "Theme";
+  } else if (mode === "dark") {
+    themeToggle.title = "Theme: Dark";
+    themeToggle.setAttribute("aria-label", "Toggle theme (Dark)");
+    themeToggle.firstChild.textContent = "🌙";
+    if (label) label.textContent = "Theme";
+  } else {
+    themeToggle.title = "Theme";
+    themeToggle.setAttribute("aria-label", "Toggle theme");
+    themeToggle.firstChild.textContent = "🌓";
+    if (label) label.textContent = "Theme";
   }
 }
 
