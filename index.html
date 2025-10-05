@@ -15,6 +15,7 @@
       <h1>
         I'm <span id="name">Shifra</span>, Your <span id="va">Virtual Assistant</span>
       </h1>
+      <div class="header-actions" style="display:none"></div>
     </header>
 
     <main>
@@ -46,6 +47,10 @@
         />
         <button onclick="handleChat()" aria-label="Send message">
           <span>Send</span>
+        </button>
+        <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle theme" title="Theme">
+          🌓
+          <span class="btn-label">Theme</span>
         </button>
         <button id="btn" title="Mike (Asking) - Start voice recording" aria-label="Mike (Asking) - Start voice recording">
           <img src="mic.svg" alt="Microphone" />
